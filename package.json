@@ -2,7 +2,6 @@
   "name": "supraja-valentine-proposal",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Aakash7093.github.io/pfs",
   "type": "module",
   "scripts": {
     "dev": "vite",
