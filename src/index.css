@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --pink-primary: #FF1493;
+  --pink-light: #FF69B4;
+  --pink-soft: #FFB6C1;
+  --rose: #FFC0CB;
+  --burgundy: #8B0045;
+  --gold: #FFD700;
+  --cream: #FFF8F5;
+  --white: #FFFFFF;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(135deg, 
+    #FFF5F8 0%, 
+    #FFE8EE 25%,
+    #FFD6E0 50%,
+    #FFE8EE 75%,
+    #FFF5F8 100%
+  );
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  animation: gradientShift 15s ease infinite;
+  color: #1A0A12;
+  scroll-behavior: smooth;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
