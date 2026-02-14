@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { Analytics } from '@vercel/analytics/react'
 import './App.css'
 
 function App() {
@@ -110,6 +111,7 @@ function App() {
 
   return (
     <div className="app">
+      <Analytics />
       <audio ref={audioRef} loop preload="auto">
         <source src="/dude-instrumental.mp3" type="audio/mpeg" />
       </audio>
@@ -543,4 +545,3 @@ function CelebrationEffect() {
 }
 
 export default App
-
