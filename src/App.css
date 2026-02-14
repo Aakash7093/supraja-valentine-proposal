@@ -1,5 +1,80 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+/* Entrance Screen */
+.entrance-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, 
+    #FFF5F8 0%, 
+    #FFE8EE 50%, 
+    #FFD6E0 100%
+  );
+  z-index: 10000;
+}
+
+.entrance-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.entrance-heart {
+  font-size: 6rem;
+  margin-bottom: 2rem;
+}
+
+.entrance-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  color: var(--pink-primary);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.entrance-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--burgundy);
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+
+.entrance-button {
+  padding: 1.2rem 3rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 40px rgba(255, 20, 147, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.entrance-button:hover {
+  box-shadow: 0 15px 50px rgba(255, 20, 147, 0.5);
+  transform: translateY(-2px);
+}
+
+.button-arrow {
+  font-size: 1.5rem;
+  display: inline-block;
+}
+
+.entrance-note {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: var(--burgundy);
+  opacity: 0.7;
+}
+
 * {
   margin: 0;
   padding: 0;

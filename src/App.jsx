@@ -3,9 +3,24 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import './App.css'
 
 function App() {
-  const [musicPlaying, setMusicPlaying] = useState(true)
+  const [hasStarted, setHasStarted] = useState(false)
+  const [musicPlaying, setMusicPlaying] = useState(false)
   const audioRef = useRef(null)
   const { scrollYProgress } = useScroll()
+
+  const startExperience = async () => {
+    setHasStarted(true)
+    // Try to play music immediately after user interaction
+    if (audioRef.current) {
+      try {
+        await audioRef.current.play()
+        setMusicPlaying(true)
+      } catch (error) {
+        console.log('Autoplay blocked:', error)
+        setMusicPlaying(false)
+      }
+    }
+  }
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -19,46 +34,79 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    // Try to play music immediately on load
-    const tryAutoplay = async () => {
-      if (audioRef.current) {
-        try {
-          await audioRef.current.play()
-          setMusicPlaying(true)
-        } catch (error) {
-          // If autoplay is blocked, wait for user interaction
-          console.log('Autoplay blocked, waiting for user interaction')
-          setMusicPlaying(false)
+  // If user hasn't started, show entrance screen
+  if (!hasStarted) {
+    return (
+      <div className="entrance-screen">
+        <audio ref={audioRef} loop preload="auto">
+          <source src="/dude-instrumental.mp3" type="audio/mpeg" />
+        </audio>
+        
+        <motion.div 
+          className="entrance-content"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            className="entrance-heart"
+            animate={{ 
+              scale: [1, 1.2, 1],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            💝
+          </motion.div>
           
-          const playOnInteraction = async () => {
-            if (audioRef.current) {
-              try {
-                await audioRef.current.play()
-                setMusicPlaying(true)
-              } catch (err) {
-                console.log('Failed to play:', err)
-              }
-            }
-            // Remove listeners after first interaction
-            document.removeEventListener('click', playOnInteraction)
-            document.removeEventListener('touchstart', playOnInteraction)
-            document.removeEventListener('keydown', playOnInteraction)
-          }
+          <motion.h1 
+            className="entrance-title"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            A Special Message
+          </motion.h1>
           
-          // Add multiple event listeners for better mobile support
-          document.addEventListener('click', playOnInteraction)
-          document.addEventListener('touchstart', playOnInteraction)
-          document.addEventListener('keydown', playOnInteraction)
-        }
-      }
-    }
-
-    // Small delay to ensure audio element is ready
-    const timer = setTimeout(tryAutoplay, 100)
-    
-    return () => clearTimeout(timer)
-  }, [])
+          <motion.p 
+            className="entrance-subtitle"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
+          >
+            For Someone Special
+          </motion.p>
+          
+          <motion.button
+            className="entrance-button"
+            onClick={startExperience}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 1.2, duration: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>Click to Enter</span>
+            <motion.span
+              className="button-arrow"
+              animate={{ x: [0, 5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              →
+            </motion.span>
+          </motion.button>
+          
+          <motion.p 
+            className="entrance-note"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8, duration: 1 }}
+          >
+            🎵 Turn on your sound for the best experience
+          </motion.p>
+        </motion.div>
+      </div>
+    )
+  }
 
   return (
     <div className="app">
@@ -72,6 +120,9 @@ function App() {
         whileHover={{ scale: 1.15 }}
         whileTap={{ scale: 0.9 }}
         title={musicPlaying ? "Pause Music" : "Play Music"}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
       >
         <svg viewBox="0 0 24 24" fill="currentColor">
           {musicPlaying ? (
@@ -311,7 +362,7 @@ function ProposalSection() {
             </p>
 
             <p>
-              Then those days began… when we came for measurements, when we delivered the furniture, when we spoke small conversations here and there.
+              Then those days began… when I came for measurements, when I delivered the furniture, when I spoke small conversations here and there.
             </p>
 
             <p className="highlight">
